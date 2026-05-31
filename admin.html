@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>교수자 채점 관리</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar" aria-label="서비스 정보">
+        <div>
+          <p class="eyebrow">Admin Console</p>
+          <h1>교수자 채점 관리</h1>
+        </div>
+        <a class="link-button" href="index.html">학생 응시 화면</a>
+      </section>
+
+      <section id="loginPanel" class="panel gate-grid">
+        <div class="intro">
+          <div class="hanzi-mark" aria-hidden="true">评分</div>
+          <h2>교수자 로그인</h2>
+          <p>Supabase Auth에 등록된 교수자 계정만 제출 답안과 수동 채점 화면에 접근할 수 있습니다.</p>
+        </div>
+
+        <form id="loginForm" class="access-form">
+          <label>
+            이메일
+            <input id="email" name="email" type="email" required placeholder="professor@example.com" />
+          </label>
+          <label>
+            비밀번호
+            <input id="password" name="password" type="password" required placeholder="비밀번호" />
+          </label>
+          <button class="primary" type="submit">로그인</button>
+          <p id="loginMessage" class="form-message" role="status"></p>
+        </form>
+      </section>
+
+      <section id="adminPanel" class="hidden">
+        <div class="admin-tools">
+          <section class="panel tool-panel">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Students</p>
+                <h2>학생 등록</h2>
+              </div>
+            </div>
+            <form id="studentForm" class="tool-form">
+              <label>
+                이름
+                <input name="name" required placeholder="예: 김민지" />
+              </label>
+              <label>
+                학번
+                <input name="studentNumber" required placeholder="예: 20240101" />
+              </label>
+              <label>
+                분반
+                <input name="section" required placeholder="예: A" />
+              </label>
+              <button class="secondary" type="submit">학생 저장</button>
+            </form>
+          </section>
+
+          <section class="panel tool-panel">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Exam Setup</p>
+                <h2>시험 생성</h2>
+              </div>
+            </div>
+            <form id="examForm" class="tool-form">
+              <label>
+                시험명
+                <input name="title" required placeholder="예: 기말고사 1차" />
+              </label>
+              <label>
+                A분반 시간
+                <input name="sectionA" type="number" min="1" required placeholder="분" />
+              </label>
+              <label>
+                B분반 시간
+                <input name="sectionB" type="number" min="1" required placeholder="분" />
+              </label>
+              <button class="secondary" type="submit">시험 저장</button>
+            </form>
+          </section>
+
+          <section class="panel tool-panel wide-tool">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Questions</p>
+                <h2>문항 추가</h2>
+              </div>
+            </div>
+            <form id="questionForm" class="question-editor">
+              <label>
+                시험
+                <select name="examId" id="questionExamSelect" required></select>
+              </label>
+              <label>
+                유형
+                <select name="type" required>
+                  <option value="auto">자동채점</option>
+                  <option value="manual">수동채점</option>
+                </select>
+              </label>
+              <label>
+                영역
+                <input name="category" required placeholder="예: 병음 숫자 표기" />
+              </label>
+              <label>
+                배점
+                <input name="points" type="number" min="0.5" step="0.5" required placeholder="점수" />
+              </label>
+              <label class="full-row">
+                문제
+                <textarea name="prompt" required placeholder="문항 내용을 입력하세요"></textarea>
+              </label>
+              <label class="full-row">
+                자동채점 정답
+                <textarea name="acceptedAnswers" placeholder="자동채점 문항만 입력합니다. 여러 정답은 줄바꿈으로 구분하세요."></textarea>
+              </label>
+              <button class="primary" type="submit">문항 추가</button>
+            </form>
+          </section>
+        </div>
+
+        <p id="adminMessage" class="form-message" role="status"></p>
+
+        <div class="teacher-layout admin-main">
+          <aside class="panel roster-panel">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Roster</p>
+                <h2>등록 학생</h2>
+              </div>
+            </div>
+            <div id="rosterList" class="compact-list"></div>
+
+            <div class="section-header compact-header">
+              <div>
+                <p class="eyebrow">Exams</p>
+                <h2>시험 설정</h2>
+              </div>
+            </div>
+            <div id="examConfig" class="compact-list"></div>
+          </aside>
+
+          <section class="panel submissions-panel">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Manual Grading</p>
+                <h2>제출 답안 및 수동 채점</h2>
+              </div>
+              <button id="logoutButton" class="ghost" type="button">로그아웃</button>
+            </div>
+            <div id="submissionList" class="submission-list"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>

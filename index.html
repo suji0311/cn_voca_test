@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>중국어 시험 자동 채점</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar" aria-label="서비스 정보">
+        <div>
+          <p class="eyebrow">Chinese Exam Grader</p>
+          <h1>중국어 시험 자동 채점</h1>
+        </div>
+        <a class="link-button" href="admin.html">교수자 로그인</a>
+      </section>
+
+      <section id="studentView">
+        <div id="gatePanel" class="panel gate-grid">
+          <div class="intro">
+            <div class="hanzi-mark" aria-hidden="true">汉语</div>
+            <h2>등록 정보 확인 후 문제가 열립니다</h2>
+            <p>이름, 학번, 분반, 시험명이 등록 명단과 모두 일치해야 응시할 수 있습니다.</p>
+          </div>
+
+          <form id="accessForm" class="access-form">
+            <label>
+              이름
+              <input id="studentName" name="studentName" autocomplete="name" required placeholder="예: 김민지" />
+            </label>
+            <label>
+              학번
+              <input id="studentId" name="studentId" required placeholder="예: 20240101" />
+            </label>
+            <label>
+              분반
+              <select id="section" name="section" required>
+                <option value="">선택</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+              </select>
+            </label>
+            <label>
+              시험명
+              <input id="examTitle" name="examTitle" required placeholder="예: 중간고사 1차" />
+            </label>
+            <button class="primary" type="submit">문제 확인</button>
+            <p id="accessMessage" class="form-message" role="status"></p>
+          </form>
+        </div>
+
+        <div id="examPanel" class="panel hidden">
+          <div class="exam-header">
+            <div>
+              <p id="examMeta" class="eyebrow"></p>
+              <h2 id="examName"></h2>
+            </div>
+            <div class="timer" aria-live="polite">
+              <span>남은 시간</span>
+              <strong id="timeLeft">--:--</strong>
+            </div>
+          </div>
+
+          <form id="examForm" class="question-list"></form>
+
+          <div class="exam-actions">
+            <button id="saveNotice" class="ghost" type="button" disabled>답안 자동 저장됨</button>
+            <button id="submitExam" class="primary" type="button">제출하기</button>
+          </div>
+        </div>
+
+        <div id="resultPanel" class="panel hidden">
+          <p class="eyebrow">제출 완료</p>
+          <h2 id="resultTitle">채점 결과</h2>
+          <div id="scoreSummary" class="score-summary"></div>
+          <div id="resultDetails" class="result-details"></div>
+          <button id="newAttempt" class="secondary" type="button">처음 화면으로</button>
+        </div>
+      </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="student.js"></script>
+  </body>
+</html>
