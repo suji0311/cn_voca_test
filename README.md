@@ -1,4 +1,5 @@
 # 중국어 시험 자동 채점 사이트
+https://suji0311.github.io/cn_voca_test/
 
 Supabase 저장 방식으로 구성된 정적 웹앱입니다.
 
