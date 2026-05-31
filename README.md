@@ -25,6 +25,11 @@ const SUPABASE_CONFIG = {
 Project URL은 `https://...supabase.co` 형태입니다. `https://supabase.com/dashboard/...`로 시작하는 대시보드 주소를 넣으면 안 됩니다.
 
 ## 교수자 계정 등록
+<img width="916" height="374" alt="image" src="https://github.com/user-attachments/assets/612d9862-8ef8-41e4-8b49-ecd1808c96dd" />
+<img width="895" height="426" alt="image" src="https://github.com/user-attachments/assets/da60d8f5-b028-4892-98d4-f85ecd1a9583" />
+<img width="904" height="650" alt="image" src="https://github.com/user-attachments/assets/93a3525d-3137-4345-b8c1-11eb46077aae" />
+
+
 
 1. Supabase Dashboard > Authentication > Users에서 교수자 이메일 계정을 생성합니다.
 2. 생성된 User UID를 복사합니다.
